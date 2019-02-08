@@ -2,28 +2,28 @@
 #include<string.h>
 #include<math.h>
 
-void view(int array[], int tos){
+void view(float array[], int tos){
     int i;
     printf("Stack : ");
     for(i=0;i<=tos;i++)
-        printf("%d ", array[i]);
+        printf("%.2f ", array[i]);
     printf("\n");
 }
 
-int push(int array[], int tos, int element){
+int push(float array[], int tos, float element){
     array[++tos] = element;
     return tos;
 }
 
-int pop(int array[], int tos){
+int pop(float array[], int tos){
     return tos-1;
 }
 
-char peek(int array[], int tos){
+float peek(float array[], int tos){
     return array[tos];
 }
 
-int empty(int array[], int tos){
+int empty(float array[], int tos){
     if(tos==-1)
         return 1;
     return 0;
@@ -42,8 +42,8 @@ int stringToInt(int num, char element){
     return 10*num+newNum;
 }
 
-int evaluate(int a, int b, char element){
-    int result;
+float evaluate(float a, float b, char element){
+    float result;
     switch(element){
     case '+':
         result = a+b;
@@ -60,16 +60,14 @@ int evaluate(int a, int b, char element){
     case '^':
         result = pow(a,b);
         break;
-    case '%':
-        result = a%b;
-        break;
     }
     return result;
 }
 
 int main(){
     char postfix[50];
-    int stack[25], tos=-1, len, i=0, result, num, ptype;
+    int tos=-1, len, i=0, ptype;
+    float stack[25], result, num;
     printf("Enter Postfix expression : ");
     gets(postfix);
     len = strlen(postfix);
@@ -91,9 +89,9 @@ int main(){
             ptype = 1;
         }
         else{
-            int b = peek(stack, tos);
+            float b = peek(stack, tos);
             tos = pop(stack, tos);
-            int a = peek(stack, tos);
+            float a = peek(stack, tos);
             tos = pop(stack, tos);
             num = evaluate(a,b,input);
             tos = push(stack, tos, num);
@@ -104,7 +102,7 @@ int main(){
         i++;
     }
     result = stack[0];
-    printf("\nResult : %d", result);
+    printf("\nResult : %.2f", result);
 
     return 0;
 }
