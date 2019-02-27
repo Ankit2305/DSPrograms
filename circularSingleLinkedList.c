@@ -74,36 +74,60 @@ struct node* deletion(struct node* head, int location, int search, int *updated)
         printf("\nDeleted %d from Linked List", head->info);
         while(head1->next!=head)
             head1=head1->next;
-        head = head->next;
-        head1->next=head;
-        free(head2);
-    }
-    else if(location==1){
-        struct node *head1 = head, *head2 = NULL;
-        while(head1!=NULL && head1->info!=search){
-            head2 = head1;
-            head1 = head1->next;
-        }
-        if(head1==NULL){
-            printf("\nNo element found with value %d", search);
-            *updated = 0;
+        if(head1==head){
+                head=NULL;
+                free(head1);
         }
         else{
-            printf("\nDeleted %d from Linked List", head1->info);
-            if(head2==NULL){
-                head2 = head;
-                while(head2->next!=head)
-                    head2 = head2->next;
-                if(head2==head)
-                    head = NULL;
-                else{
-                    head = head1->next;
-                    head2->next = head;
-                }
+            head = head->next;
+            head1->next=head;
+            free(head2);
+        }
+    }
+    else if(location==1){
+        struct node *head1 = head->next, *head2 = head;
+        if(head->info==search){
+            printf("\nDeleted %d from Linked List", search);
+            head1 = head;
+            while(head1->next!=head)
+                head1 = head1->next;
+            if(head1==head){
+                head=NULL;
+                free(head1);
             }
-            else
-                head2->next = head1->next;
-            free(head1);
+            else{
+                head2=head;
+                head=head->next;
+                head1->next=head;
+                free(head2);
+            }
+        }
+        else{
+            while(head1!=head && head1->info!=search){
+                head2 = head1;
+                head1 = head1->next;
+            }
+            if(head1==head){
+                printf("\nNo element found with value %d", search);
+                *updated = 0;
+            }
+            else{
+                printf("\nDeleted %d from Linked List", head1->info);
+                /*if(head2==NULL){
+                    head2 = head;
+                    while(head2->next!=head)
+                        head2 = head2->next;
+                    if(head2==head)
+                        head = NULL;
+                    else{
+                        head = head1->next;
+                        head2->next = head;
+                    }
+                }
+                else*/
+                    head2->next = head1->next;
+                free(head1);
+            }
         }
     }
     else{
