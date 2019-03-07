@@ -7,21 +7,20 @@ struct node{
     struct node *next, *prev;
 };
 
-display(struct node *head){
+void display(struct node *head){
     char arrow[4];
     strcpy(arrow, "<->");
     if(head==NULL)
         printf("\nDoubly Linked List is empty...");
     else{
         struct node *ptr = head;
-        printf("\nDoubly Linked List:\n\n  HEAD %c%c\nNULL <-", 196, 191);
+        printf("\nDoubly Linked List:\n");
         while(ptr!=NULL){
             if(ptr->next == NULL)
-                strcpy(arrow, "->");
-            printf(" %d %s", ptr->info, arrow);
+                strcpy(arrow, "");
+            printf(" %p | %d [ %p ]| %p %s\n",ptr->prev, ptr->info, ptr, ptr->next, arrow);
             ptr = ptr->next;
         }
-        printf(" NULL\n");
     }
     printf("\n");
     system("pause");

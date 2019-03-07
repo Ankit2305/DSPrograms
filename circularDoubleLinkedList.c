@@ -7,7 +7,7 @@ struct node{
     struct node *next, *prev;
 };
 
-display(struct node *head){
+void display(struct node *head){
     struct node *ptr = head;
     int count = 0, i;
     char arrow[4];
@@ -18,20 +18,15 @@ display(struct node *head){
         printf("\nCircular Double Linked List : \n");
         if(ptr->next==head)
             strcpy(arrow, "->");
-        printf("\n\n  HEAD %c%c\nTAIL <- %d %s", 196, 191, ptr->info, arrow);
+        printf("\n\n %p | %d [ %p ]| %p %s\n",ptr->prev, ptr->info, ptr, ptr->next, arrow);
         ptr = ptr->next;
         while(ptr!=head){
             if(ptr->next==head)
                 strcpy(arrow, "->");
-            printf(" %d %s", ptr->info, arrow);
+            printf(" %p | %d [ %p ]| %p %s\n",ptr->prev, ptr->info, ptr, ptr->next, arrow);
             ptr = ptr->next;
             count++;
         }
-        printf(" HEAD\n");
-        printf("        ");
-        for(i=0;i<count;i++)
-            printf("      ");
-        printf("%c%c TAIL\n", 192, 196);
     }
 }
 
