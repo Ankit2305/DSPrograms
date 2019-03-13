@@ -36,12 +36,12 @@ struct node* createLinkedList(){
 
 display(struct node *head){
     struct node *ptr = head;
-    printf("\nLinked List : HEAD ->");
+    printf("\nLinked List : \nHEAD ->\n");
     while(ptr!=NULL){
-        printf(" %d ->", ptr->info);
+        printf("ADDRESS : %p | INFO : %d | NEXT : %p ->\n",ptr, ptr->info, ptr->next);
         ptr = ptr->next;
     }
-    printf(" NULL");
+    printf("NULL");
 }
 
 int countNodes(struct node *head){

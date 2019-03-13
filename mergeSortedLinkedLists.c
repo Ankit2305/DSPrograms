@@ -35,12 +35,12 @@ struct node* createLinkedList(){
 
 display(struct node *head){
     struct node *ptr = head;
-    printf("Linked List : HEAD ->");
+    printf("Linked List : \nHEAD ->\n");
     while(ptr!=NULL){
-        printf(" %d ->", ptr->info);
+        printf("ADDRESS : %p | INFO : %d | NEXT : %p ->\n",ptr, ptr->info, ptr->next);
         ptr = ptr->next;
     }
-    printf(" NULL");
+    printf("NULL");
 }
 
 struct node* selectionSort(struct node *head){

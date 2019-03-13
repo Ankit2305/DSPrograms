@@ -36,12 +36,12 @@ struct node* createLinkedList(){
 
 display(struct node *head){
     struct node *ptr = head;
-    printf("\nLinked List : HEAD ->");
+    printf("\nLinked List : \nHEAD ->\n");
     while(ptr!=NULL){
-        printf(" %d ->", ptr->info);
+        printf("ADDRESS : %p | INFO : %d | NEXT : %p ->\n",ptr, ptr->info, ptr->next);
         ptr = ptr->next;
     }
-    printf(" NULL");
+    printf("NULL");
 }
 
 numPrefix(int num, char prefix[]){
@@ -69,7 +69,7 @@ linearSearch(struct node *head){
     while(ptr!=NULL){
         if(ptr->info==element){
             numPrefix(nodeNum, prefix);
-            printf("\n%d found at the %d%s node", element, nodeNum, prefix);
+            printf("\n%d found at the %d%s node [ ADDRESS : %p ]", element, nodeNum, prefix, ptr);
             break;
         }
         ptr=ptr->next;
