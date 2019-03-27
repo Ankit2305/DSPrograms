@@ -121,12 +121,31 @@ void postorder(struct node *leaf){
     }
 }
 
+void search(struct node *root){
+    int element, found = 0;
+    printf("Enter element to be searched : ");
+    scanf("%d", &element);
+    while(root!=NULL){
+        if(root->info == element){
+            printf("\n%d found at address %p", element, root);
+            found = 1;
+            break;
+        }
+        else if(root->info > element)
+            root = root->left;
+        else
+            root = root->right;
+    }
+    if(!found)
+        printf("\n%d is not found in BST", element);
+}
+
 int main(){
     struct node *root = NULL;
     int choice = 1, element, updated;
     while(choice != 0){
         system("cls");
-        printf("Binary Search Tree:\n1> Insert\n2> Delete\n3> Traversal\n4> Display\n0> Exit\n\nOption : ");
+        printf("Binary Search Tree:\n1> Insert\n2> Delete\n3> Traversal\n4> Display\n5> Search\n0> Exit\n\nOption : ");
         scanf("%d", &choice);
         switch(choice){
         case 1:
@@ -157,6 +176,9 @@ int main(){
             break;
         case 4:
             preDisplay(root);
+            break;
+        case 5:
+            search(root);
             break;
         case 0:
             printf("\nProgram is requested to quit...");
