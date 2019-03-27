@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<math.h>
 
 struct node{
     int coefficient, order;
@@ -42,11 +43,17 @@ struct node* createLinkedList(){
 
 display(struct node *head){
     struct node *ptr = head;
+    if(ptr->coefficient<0)
+        printf(" -");
     while(ptr->next!=NULL){
-        printf(" %d x^%d +", ptr->coefficient, ptr->order);
+        printf(" %d x^%d ", abs(ptr->coefficient), ptr->order);
         ptr = ptr->next;
+        if(ptr->coefficient>=0)
+            printf("+");
+        else
+            printf("-");
     }
-    printf(" %d x^%d", ptr->coefficient, ptr->order);
+    printf(" %d x^%d", abs(ptr->coefficient), ptr->order);
 }
 
 struct node* selectionSort(struct node *head){
@@ -90,33 +97,43 @@ struct node* selectionSort(struct node *head){
 }
 
 struct node *addPolynomials(struct node *first, struct node *second){
-    struct node *third, *last;
+    struct node *third = NULL, *last = NULL;
 
-    struct node *newNode = (struct node*)malloc(sizeof(struct node));
-    if(first->order == second->order){
-        newNode->order = first->order;
-        newNode->coefficient = first->coefficient + second->coefficient;
-        newNode->next = NULL;
-        third = newNode;
-        last = newNode;
-        first = first->next;
-        second = second->next;
-    }
-    else if(first->order > second->order){
-        newNode->order = first->order;
-        newNode->coefficient = first->coefficient;
-        newNode->next = NULL;
-        third = newNode;
-        last = newNode;
-        first = first->next;
-    }
-    else{
-        newNode->order = second->order;
-        newNode->coefficient = second->coefficient;
-        newNode->next = NULL;
-        third = newNode;
-        last = newNode;
-        second = second->next;
+    while(third == NULL){
+        if(first->order == second->order){
+            if(first->coefficient + second->coefficient != 0){
+                struct node *newNode = (struct node*)malloc(sizeof(struct node));
+                newNode->order = first->order;
+                newNode->coefficient = first->coefficient + second->coefficient;
+                newNode->next = NULL;
+                third = newNode;
+                last = newNode;
+            }
+            first = first->next;
+            second = second->next;
+        }
+        else if(first->order > second->order){
+            if(first->coefficient != 0){
+                struct node *newNode = (struct node*)malloc(sizeof(struct node));
+                newNode->order = first->order;
+                newNode->coefficient = first->coefficient;
+                newNode->next = NULL;
+                third = newNode;
+                last = newNode;
+            }
+            first = first->next;
+        }
+        else{
+            if(second->coefficient != 0){
+                struct node *newNode = (struct node*)malloc(sizeof(struct node));
+                newNode->order = second->order;
+                newNode->coefficient = second->coefficient;
+                newNode->next = NULL;
+                third = newNode;
+                last = newNode;
+            }
+            second = second->next;
+        }
     }
 
     while(first!=NULL || second!=NULL){
@@ -130,31 +147,37 @@ struct node *addPolynomials(struct node *first, struct node *second){
         }
         else{
             if(first->order == second->order){
-                newNode = (struct node*)malloc(sizeof(struct node));
-                newNode->order = first->order;
-                newNode->coefficient = first->coefficient + second->coefficient;
-                newNode->next = NULL;
-                last->next = newNode;
-                last = newNode;
+                if(first->coefficient + second->coefficient != 0){
+                    struct node *newNode = (struct node*)malloc(sizeof(struct node));
+                    newNode->order = first->order;
+                    newNode->coefficient = first->coefficient + second->coefficient;
+                    newNode->next = NULL;
+                    last->next = newNode;
+                    last = newNode;
+                }
                 first = first->next;
                 second = second->next;
             }
             else if(first->order > second->order){
-                newNode = (struct node*)malloc(sizeof(struct node));
-                newNode->order = first->order;
-                newNode->coefficient = first->coefficient;
-                newNode->next = NULL;
-                last->next = newNode;
-                last = newNode;
+                if(first->coefficient != 0){
+                    struct node *newNode = (struct node*)malloc(sizeof(struct node));
+                    newNode->order = first->order;
+                    newNode->coefficient = first->coefficient;
+                    newNode->next = NULL;
+                    last->next = newNode;
+                    last = newNode;
+                }
                 first = first->next;
             }
             else{
-                newNode = (struct node*)malloc(sizeof(struct node));
-                newNode->order = second->order;
-                newNode->coefficient = second->coefficient;
-                newNode->next = NULL;
-                last->next = newNode;
-                last = newNode;
+                if(second->coefficient != 0){
+                    struct node *newNode = (struct node*)malloc(sizeof(struct node));
+                    newNode->order = second->order;
+                    newNode->coefficient = second->coefficient;
+                    newNode->next = NULL;
+                    last->next = newNode;
+                    last = newNode;
+                }
                 second = second->next;
             }
         }
