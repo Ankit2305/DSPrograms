@@ -4,7 +4,7 @@ int main(){
     printf("Enter number of rows and columns : ");
     scanf("%d%d", &r, &c);
     int array[r][c];
-    printf("Enter Array : \n");
+    printf("Enter Matrix's Elements : \n");
     for(i=0;i<r;i++){
         for(j=0;j<c;j++){
             scanf("%d", &array[i][j]);
@@ -12,7 +12,7 @@ int main(){
                 nonZero++;
         }
     }
-    printf("Given array is : \n");
+    printf("Given Matrix is : \n");
     for(i=0;i<r;i++){
         for(j=0;j<c;j++){
             printf("%3d ", array[i][j]);
@@ -20,7 +20,7 @@ int main(){
         printf("\n");
     }
     if(r*c/4 < nonZero)
-        printf("This array is not sparse array.\n ");
+        printf("This Matrix is not sparse Matrix.\n ");
     else{
         int sparseArray[nonZero+1][3], k=1;
         sparseArray[0][0] = r;
