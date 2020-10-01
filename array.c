@@ -1,7 +1,7 @@
 #include<stdio.h>
 int main(){
     int arr[10], size, choice, choice2, i, j, data, loc, updated, found;
-    printf("How many elements do yo want to enter? ");
+    printf("How many elements do you want to enter? ");
     scanf("%d", &size);
     printf("Enter %d elements : \n", size);
     for(i=0;i<size;i++)
